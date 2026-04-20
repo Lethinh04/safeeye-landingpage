@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1d4ed8', // blue-700
+                        secondary: '#4f46e5', // indigo-600
+                        darkContext: '#111827', // gray-900
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            /* Large base font */
+        }
+
+        /* High contrast focus ring for keyboard navigation */
+        *:focus {
+            outline: 4px solid #fbbf24;
+            /* yellow-400 */
+            outline-offset: 4px;
+        }
+
+        /* We use Tailwind's sr-only to hide it, and focus states to show it */
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 leading-relaxed overflow-x-hidden">
+
+    <!-- Accessibility: Skip to Content -->
+    <a id="skip-link" href="#main-content"
+        class="absolute -top-full left-0 bg-primary text-white p-3 font-bold text-xl z-[100] transition-all focus:top-0">
+        Chuyển đến nội dung chính
+    </a>
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home" aria-label="Trang chủ SafeEye"
+                        class="text-3xl font-extrabold text-primary flex items-center gap-2">
+                        <!-- Icon Placeholder -->
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+                            role="img">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        SafeEye
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8" aria-label="Menu chính">
+                    <a href="#about" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Giới
+                        thiệu</a>
+                    <a href="#features"
+                        class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Tính
+                        năng</a>
+                    <a href="#how-it-works"
+                        class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Hoạt động</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Liên
+                        hệ</a>
+                </nav>
+
+                <!-- Voice Toggle -->
+                <div class="flex items-center">
+                    <button id="voice-toggle"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors border-2 border-transparent hover:border-gray-400"
+                        aria-pressed="false" aria-label="Bật/Tắt hỗ trợ giọng nói đọc màn hình">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        <span id="voice-status">Đọc nội dung: Tắt</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="bg-primary text-white py-20 lg:py-32" aria-labelledby="hero-title">
+            <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="w-full md:w-1/2">
+                    <h1 id="hero-title" class="text-4xl lg:text-6xl font-extrabold tracking-tight mb-6"
+                        data-read="SafeEye – Đôi mắt thông minh cho người khiếm thị">
+                        SafeEye – Đôi mắt thông minh cho người khiếm thị
+                    </h1>
+                    <p class="text-xl lg:text-2xl mb-8 font-semibold"
+                        data-read="Thiết bị đeo tích hợp Trí Tuệ Nhân Tạo, giúp bạn tự tin di chuyển và nhận diện thế giới xung quanh dễ dàng hơn bao giờ hết.">
+                        Thiết bị đeo tích hợp Trí Tuệ Nhân Tạo, giúp bạn tự tin di chuyển và nhận diện thế giới xung
+                        quanh dễ dàng hơn bao giờ hết.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#how-it-works"
+                            class="bg-white text-primary font-bold text-2xl py-4 px-8 rounded-full text-center hover:bg-gray-100 transition-colors shadow-lg border-4 border-transparent hover:border-yellow-400"
+                            aria-label="Xem cách thiết bị hoạt động" data-read="Trải nghiệm qua màn ảnh.">
+                            Xem cách hoạt động
+                        </a>
+                        <a href="#about"
+                            class="bg-transparent border-4 border-white text-white font-bold text-2xl py-4 px-8 rounded-full text-center hover:bg-white hover:text-primary transition-colors"
+                            aria-label="Tìm hiểu thêm về sản phẩm" data-read="Tìm hiểu thêm về sản phẩm.">
+                            Tìm hiểu thêm
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div
+                        class="relative w-full max-w-md aspect-square bg-white/10 rounded-[2rem] flex items-center justify-center p-4 shadow-2xl backdrop-blur-sm border-8 border-white/20">
+                        <!-- Thay URL dưới đây bằng URL hình hộp sản phẩm (Box) từ Cloudinary của bạn -->
+                        <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776687705/Baobi_i5kxyf.jpg"
+                            alt="Hộp bao bì sản phẩm thiết bị SafeEye"
+                            class="rounded-xl w-full h-full object-contain shadow-inner bg-white"
+                            id="cloudinary-hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white" aria-labelledby="about-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t-8 border-transparent">
+                <div class="text-center mb-16">
+                    <h2 id="about-title" class="text-4xl font-extrabold text-gray-900 mb-4" data-read="SafeEye là gì?">
+                        SafeEye là gì?
+                    </h2>
+                    <p class="text-2xl text-gray-700 font-medium max-w-3xl mx-auto"
+                        data-read="SafeEye là thiết bị đeo thông minh hỗ trợ người khiếm thị.">
+                        Sự kết hợp hoàn hảo giữa thiết bị đeo nhỏ gọn và sức mạnh của AI, Computer Vision.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Point 1 -->
+                    <div
+                        class="bg-blue-50 p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+                        <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mb-6"
+                            aria-hidden="true">
+                            <span class="text-4xl">🧠</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4" data-read="Trí tuệ nhân tạo (AI)">Trí tuệ nhân
+                            tạo (AI)</h3>
+                        <p class="text-xl text-gray-700"
+                            data-read="Mô hình AI học sâu giúp phân tích hình ảnh theo thời gian thực với độ chính xác cao.">
+                            Mô hình AI học sâu giúp phân tích hình ảnh theo thời gian thực với độ chính xác cao.
+                        </p>
+                    </div>
+                    <!-- Point 2 -->
+                    <div
+                        class="bg-blue-50 p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+                        <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mb-6"
+                            aria-hidden="true">
+                            <span class="text-4xl">👁️</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4"
+                            data-read="Thị giác máy tính (Computer Vision)">Thị giác máy tính</h3>
+                        <p class="text-xl text-gray-700"
+                            data-read="Máy ảnh thông minh liên tục quét và nhận diện không gian xung quanh người dùng.">
+                            Máy ảnh thông minh liên tục quét và nhận diện không gian xung quanh người dùng.
+                        </p>
+                    </div>
+                    <!-- Point 3 -->
+                    <div
+                        class="bg-blue-50 p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+                        <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mb-6"
+                            aria-hidden="true">
+                            <span class="text-4xl">🎧</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4" data-read="Thiết bị đeo (Wearable)">Thiết bị
+                            đeo (Wearable)</h3>
+                        <p class="text-xl text-gray-700"
+                            data-read="Thiết kế tiện dụng, rảnh tay. Phản hồi trực tiếp qua tai nghe không dây.">
+                            Thiết kế tiện dụng, rảnh tay. Phản hồi trực tiếp qua tai nghe không dây.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-gray-100" aria-labelledby="features-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 id="features-title" class="text-4xl font-extrabold text-gray-900 mb-4"
+                        data-read="Tính năng nổi bật">
+                        Tính năng nổi bật
+                    </h2>
+                </div>
+
+                <div class="space-y-12">
+                    <!-- Feature 1 -->
+                    <div
+                        class="bg-white rounded-2xl p-8 md:p-12 shadow-md flex flex-col md:flex-row items-center gap-12 border-l-8 border-primary">
+                        <div class="w-full md:w-1/3 flex justify-center">
+                            <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776688923/ChatGPT_Image_19_38_46_20_thg_4_2026_oyvyku.png"
+                                alt="Tiền giấy Việt Nam đang được nhận diện"
+                                class="rounded-xl shadow-lg w-full object-cover">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Nhận diện tiền mặt">💵 Nhận
+                                diện tiền mặt</h3>
+                            <p class="text-2xl text-gray-700 mb-4"
+                                data-read="Hỗ trợ bạn thanh toán, mua sắm an toàn hơn. Thiết bị sẽ đọc to mệnh giá của các tờ tiền Việt Nam khi đưa vào khung hình.">
+                                Hỗ trợ bạn thanh toán, mua sắm an toàn hơn. Thiết bị sẽ tự động phát hiện và đọc to mệnh
+                                giá của các loại tiền giấy khi đưa vào khung hình.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div
+                        class="bg-white rounded-2xl p-8 md:p-12 shadow-md flex flex-col md:flex-row-reverse items-center gap-12 border-r-8 border-secondary">
+                        <div class="w-full md:w-1/3 flex justify-center">
+                            <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776688919/ChatGPT_Image_19_41_11_20_thg_4_2026_ytevrb.png"
+                                alt="Camera đang phân tích chướng ngại vật trên đường phố"
+                                class="rounded-xl shadow-lg w-full object-cover">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Phát hiện vật cản">🚧 Phát hiện
+                                vật cản</h3>
+                            <p class="text-2xl text-gray-700 mb-4"
+                                data-read="Quét không gian phía trước để phát hiện ghế, bàn, xe cộ, người qua lại và cảnh báo bạn kịp thời.">
+                                Quét không gian phía trước để phát hiện nhanh chóng các vật cản (ghế, bàn, xe cộ, người
+                                đi đường...) giúp bạn di chuyển độc lập và an toàn hơn.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div
+                        class="bg-white rounded-2xl p-8 md:p-12 shadow-md flex flex-col md:flex-row items-center gap-12 border-l-8 border-green-600">
+                        <div class="w-full md:w-1/3 flex justify-center">
+                            <div class="text-8xl w-48 h-48 bg-green-50 rounded-full flex items-center justify-center border-4 border-green-200"
+                                aria-hidden="true">
+                                🔊
+                            </div>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4"
+                                data-read="Cảnh báo bằng âm thanh ngay lập tức">🔊 Âm thanh cảnh báo Real-time</h3>
+                            <p class="text-2xl text-gray-700 mb-4"
+                                data-read="Khi phát hiện tiền hoặc vật cản, hệ thống sẽ chuyển ngay sang giọng nói tiếng Việt rõ ràng vào tai nghe của bạn.">
+                                Khi phát hiện tiền hoặc chướng ngại vật, hệ thống trực tiếp nói tiếng Việt hoặc phát âm
+                                báo vào tai nghe với độ trễ cực thấp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section id="how-it-works" class="py-20 bg-darkContext text-white" aria-labelledby="how-it-works-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 id="how-it-works-title" class="text-4xl font-extrabold mb-4"
+                        data-read="Cách hoạt động của hệ thống">
+                        Hệ thống hoạt động như thế nào?
+                    </h2>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-stretch justify-center gap-8 relative text-center">
+
+                    <!-- Step 1 -->
+                    <div
+                        class="flex-1 bg-gray-800 p-8 rounded-2xl border-2 border-gray-600 z-10 hover:border-primary transition-colors">
+                        <div class="text-5xl mb-6 mx-auto bg-gray-700 w-24 h-24 rounded-full flex items-center justify-center border-4 border-gray-500"
+                            aria-hidden="true">1</div>
+                        <h3 class="text-2xl font-bold mb-4">Ghi hình (Camera)</h3>
+                        <p class="text-xl text-gray-300"
+                            data-read="Bước 1: Camera trên kính thu nhận hình ảnh liên tục.">Camera gắn trên kính hoặc
+                            áo liên tục quay video môi trường xung quanh.</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex flex-col justify-center text-4xl text-gray-500" aria-hidden="true">
+                        ➔
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div
+                        class="flex-1 bg-gray-800 p-8 rounded-2xl border-2 border-gray-600 z-10 hover:border-secondary transition-colors">
+                        <div class="text-5xl mb-6 mx-auto bg-gray-700 w-24 h-24 rounded-full flex items-center justify-center border-4 border-gray-500"
+                            aria-hidden="true">2</div>
+                        <h3 class="text-2xl font-bold mb-4">Phân tích (AI Processing)</h3>
+                        <p class="text-xl text-gray-300"
+                            data-read="Bước 2: AI phân tích và phát hiện vật thể, mệnh giá tiền.">Hệ thống AI xử lý ngay
+                            lập tức để xác định các vật thể, chướng ngại vật hay đồng tiền.</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex flex-col justify-center text-4xl text-gray-500" aria-hidden="true">
+                        ➔
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div
+                        class="flex-1 bg-gray-800 p-8 rounded-2xl border-2 border-gray-600 z-10 hover:border-green-500 transition-colors">
+                        <div class="text-5xl mb-6 mx-auto bg-gray-700 w-24 h-24 rounded-full flex items-center justify-center border-4 border-gray-500"
+                            aria-hidden="true">3</div>
+                        <h3 class="text-2xl font-bold mb-4">Cảnh báo (Audio Alert)</h3>
+                        <p class="text-xl text-gray-300" data-read="Bước 3: Phát âm thanh cảnh báo tới người dùng.">Kết
+                            quả được chuyển thành giọng nói và truyền nhanh chóng đến tai nghe.</p>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="mt-20 bg-gray-800 rounded-2xl p-8 md:p-12 text-center shadow-xl border-t-8 border-primary">
+                    <h3 class="text-3xl font-bold mb-8 text-white"
+                        data-read="Giá trị mang lại: Tăng tính tự lập và an toàn hơn cho bạn.">Giá trị cốt lõi mang lại
+                    </h3>
+                    <div class="flex flex-col md:flex-row justify-around gap-8 text-2xl font-bold">
+                        <div class="flex items-center gap-4 bg-gray-700 p-6 rounded-lg w-full justify-center">
+                            <span class="text-3xl" aria-hidden="true">🌟</span>
+                            <span>Tăng sự tự lập</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-gray-700 p-6 rounded-lg w-full justify-center">
+                            <span class="text-3xl" aria-hidden="true">🛡️</span>
+                            <span>Bảo vệ an toàn</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-gray-700 p-6 rounded-lg w-full justify-center">
+                            <span class="text-3xl" aria-hidden="true">🤝</span>
+                            <span>Tự tin hòa nhập</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product / Contact Section -->
+        <section id="contact" class="py-20 bg-white" aria-labelledby="contact-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16">
+
+                <!-- Product Showcase -->
+                <div>
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-8" data-read="Thiết bị thực tế">Hình Ảnh Thiết
+                        Bị Thực Tế</h2>
+                    <div
+                        class="bg-gray-100 rounded-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-inner p-6 border-2 border-gray-200">
+                        <!-- Thay URL dưới đây bằng URL hình thiết bị (Camera Box) từ Cloudinary của bạn -->
+                        <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776687699/Sanpham2_icfh0w.jpg"
+                            alt="Ảnh thực tế của thiết bị đeo SafeEye với camera"
+                            class="rounded-lg shadow-sm w-full h-64 object-contain bg-white hover:scale-105 transition-transform"
+                            id="cloudinary-product-img-1">
+
+                        <!-- Thay URL dưới đây bằng URL hình thiết bị góc khác từ Cloudinary của bạn -->
+                        <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776687679/Sanpham1_sk9vqj.jpg"
+                            alt="Góc chụp khác của bộ thiết bị SafeEye"
+                            class="rounded-lg shadow-sm w-full h-64 object-contain bg-white hover:scale-105 transition-transform"
+                            id="cloudinary-product-img-2">
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <!-- Contact Info (Replacing Form) -->
+                <div
+                    class="bg-gray-50 text-gray-900 p-8 md:p-12 rounded-2xl shadow-lg border-2 border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <h2 id="contact-title" class="text-4xl font-extrabold mb-8 flex items-center gap-4 text-primary"
+                            data-read="Thông tin liên hệ">
+                            <!-- Placeholder Logo SafeEye -->
+                            <span class="text-2xl uppercase tracking-widest font-black">SafeEye</span>
+                        </h2>
+
+                        <div class="space-y-6 text-xl text-gray-800">
+                            <div class="flex items-start gap-4">
+                                <span class="mt-1" aria-hidden="true">📍</span>
+                                <p
+                                    data-read="Địa chỉ: Số 600, Đường Nguyễn Văn Cừ nối dài, Phường An Bình, Thành phố Cần Thơ, Can Tho, Vietnam, 900000">
+                                    <strong class="text-gray-900">Địa chỉ:</strong> Số 600, Đường Nguyễn Văn Cừ nối dài,
+                                    Phường An Bình, Thành phố Cần Thơ, Can Tho, Vietnam, 900000
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span aria-hidden="true">✉️</span>
+                                <p data-read="Email liên hệ: safeeye.team@gmail.com">
+                                    <strong class="text-gray-900">Email:</strong> safeeye.team@gmail.com
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span aria-hidden="true">📞</span>
+                                <p data-read="Đường dây nóng: 0 9 1 3 9 8 7 7 3 6">
+                                    <strong class="text-gray-900">Hotline:</strong> 0913987736
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-300 my-8 shadow-sm">
+
+                    <!-- Social Icons -->
+                    <div class="flex gap-4" aria-label="Các trang mạng xã hội">
+                        <a href="#"
+                            class="w-12 h-12 bg-white text-gray-600 hover:text-white hover:bg-primary shadow-sm border border-gray-200 rounded-full flex items-center justify-center transition-colors focus:ring-4 focus:ring-yellow-400"
+                            aria-label="Facebook">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-white text-gray-600 hover:text-white hover:bg-pink-600 shadow-sm border border-gray-200 rounded-full flex items-center justify-center transition-colors focus:ring-4 focus:ring-yellow-400"
+                            aria-label="Instagram">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-white text-gray-600 hover:text-white hover:bg-black shadow-sm border border-gray-200 rounded-full flex items-center justify-center transition-colors focus:ring-4 focus:ring-yellow-400"
+                            aria-label="TikTok">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.71a6.34 6.34 0 0011.66 3.44V10a8.13 8.13 0 004.84 1.58V8.16a4.8 4.8 0 01-1.91-.47z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-white text-gray-600 hover:text-white hover:bg-red-600 shadow-sm border border-gray-200 rounded-full flex items-center justify-center transition-colors focus:ring-4 focus:ring-yellow-400"
+                            aria-label="YouTube">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.015 3.015 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12" role="contentinfo">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+            <div>
+                <p class="text-2xl font-bold mb-2">SafeEye Project</p>
+                <p class="text-gray-400 text-xl font-medium">© 2026 Bản quyền thuộc về đội ngũ SafeEye.</p>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="text-gray-400 hover:text-white font-bold text-xl transition-colors">Chính sách bảo
+                    mật</a>
+                <a href="#" class="text-gray-400 hover:text-white font-bold text-xl transition-colors">Điều khoản</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Text-to-Speech Accessibility Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const voiceToggle = document.getElementById('voice-toggle');
+            const voiceStatus = document.getElementById('voice-status');
+            let isVoiceEnabled = false;
+            let synth = window.speechSynthesis;
+
+            // Chức năng bật/tắt đọc màn hình
+            voiceToggle.addEventListener('click', () => {
+                isVoiceEnabled = !isVoiceEnabled;
+                voiceToggle.setAttribute('aria-pressed', isVoiceEnabled);
+
+                if (isVoiceEnabled) {
+                    voiceToggle.classList.replace('bg-gray-200', 'bg-green-600');
+                    voiceToggle.classList.replace('text-gray-800', 'text-white');
+                    voiceStatus.textContent = "Đọc nội dung: Bật";
+                    speak("Chế độ hỗ trợ đọc giọng nói đã được bật. Nhấn phím Tab để di chuyển qua các thành phần.");
+                } else {
+                    voiceToggle.classList.replace('bg-green-600', 'bg-gray-200');
+                    voiceToggle.classList.replace('text-white', 'text-gray-800');
+                    voiceStatus.textContent = "Đọc nội dung: Tắt";
+                    synth.cancel();
+                }
+            });
+
+            function speak(text) {
+                if (!isVoiceEnabled || !text) return;
+                synth.cancel(); // Dừng phát đang đọc
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'vi-VN';
+                // Cấu hình một chút giọng điệu nếu cần
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+
+                synth.speak(utterance);
+            }
+
+            // Lắng nghe sự kiện hover và focus để đọc nội dung
+            const readableElements = document.querySelectorAll('a, button, [data-read], h1, h2, h3, h4, input, textarea');
+
+            readableElements.forEach(el => {
+                const handleRead = () => {
+                    let textToRead = el.getAttribute('aria-label')
+                        || el.getAttribute('data-read')
+                        || (el.labels && el.labels[0] ? el.labels[0].innerText : null)
+                        || el.innerText
+                        || el.value;
+
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        const placeholder = el.getAttribute('placeholder');
+                        textToRead = `Trường nhập liệu: ${textToRead}. ${placeholder ? placeholder : ''}`;
+                    }
+
+                    speak(textToRead);
+                };
+
+                el.addEventListener('focus', handleRead);
+                el.addEventListener('mouseenter', handleRead);
+
+                // Dừng đọc khi rời chuột
+                el.addEventListener('mouseleave', () => {
+                    if (isVoiceEnabled) synth.cancel();
+                });
+                el.addEventListener('blur', () => {
+                    if (isVoiceEnabled) synth.cancel();
+                });
+            });
+
+            // Xử lý Skip link focus
+            document.getElementById('skip-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.getElementById('main-content');
+                target.setAttribute('tabindex', '-1');
+                target.focus();
+                speak("Đã chuyển đến nội dung chính.");
+            });
+        });
+    </script>
+</body>
+
+</html>
