@@ -74,14 +74,14 @@
 
                 <!-- Navigation -->
                 <nav class="hidden md:flex space-x-8" aria-label="Menu chính">
-                    <a href="#about" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Giới
+                    <a href="/about" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Giới
                         thiệu</a>
-                    <a href="#features"
+                    <a href="/features"
                         class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Tính
                         năng</a>
-                    <a href="#how-it-works"
+                    <a href="/how-it-works"
                         class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Hoạt động</a>
-                    <a href="#contact" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Liên
+                    <a href="/contact" class="text-gray-800 hover:text-primary font-bold text-xl transition-colors">Liên
                         hệ</a>
                 </nav>
 
@@ -117,12 +117,12 @@
                         quanh dễ dàng hơn bao giờ hết.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#how-it-works"
+                        <a href="/how-it-works"
                             class="bg-white text-primary font-bold text-2xl py-4 px-8 rounded-full text-center hover:bg-gray-100 transition-colors shadow-lg border-4 border-transparent hover:border-yellow-400"
                             aria-label="Xem cách thiết bị hoạt động" data-read="Trải nghiệm qua màn ảnh.">
                             Xem cách hoạt động
                         </a>
-                        <a href="#about"
+                        <a href="/about"
                             class="bg-transparent border-4 border-white text-white font-bold text-2xl py-4 px-8 rounded-full text-center hover:bg-white hover:text-primary transition-colors"
                             aria-label="Tìm hiểu thêm về sản phẩm" data-read="Tìm hiểu thêm về sản phẩm.">
                             Tìm hiểu thêm
@@ -548,6 +548,33 @@
                 target.focus();
                 speak("Đã chuyển đến nội dung chính.");
             });
+
+            // Xử lý "Clean URL" (không có dấu #) - Điều hướng dạng SPA
+            document.querySelectorAll('a[href^="/"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if(href === "/") return; // Bỏ qua link trang chủ mặc định
+                    
+                    const targetId = href.substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        e.preventDefault(); // Ngăn trình duyệt nạp lại trang
+                        window.history.pushState({}, '', '/' + targetId); // Đổi URL
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Nếu người dùng truy cập trực tiếp từ URL (VD: nhấn F5 tại trang /about)
+            const path = window.location.pathname.substring(1);
+            if (path) {
+                const target = document.getElementById(path);
+                if (target) {
+                    // Đợi giao diện render xong rồi cuộn xuống
+                    setTimeout(() => target.scrollIntoView({ behavior: 'auto' }), 100);
+                }
+            }
         });
     </script>
 </body>

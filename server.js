@@ -12,7 +12,13 @@ app.set("views", path.join(__dirname, "src/view"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // ─── Routes ───────────────────────────────
-app.get("/", (req, res) => res.render("index", { title: "SafeEye – Đôi mắt thông minh cho người khiếm thị" }));
+const renderLandingPage = (req, res) => res.render("index", { title: "SafeEye – Đôi mắt thông minh cho người khiếm thị" });
+
+app.get("/", renderLandingPage);
+app.get("/about", renderLandingPage);
+app.get("/features", renderLandingPage);
+app.get("/how-it-works", renderLandingPage);
+app.get("/contact", renderLandingPage);
 
 
 
