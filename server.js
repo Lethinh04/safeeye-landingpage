@@ -17,10 +17,15 @@ app.get("/", (req, res) => res.render("index", { title: "SafeEye – Đôi mắt
 
 
 // ─── Start ────────────────────────────────
-app.listen(PORT, () => {
-    console.log(`\n┌─────────────────────────────────────────┐`);
-    console.log(`│  SafeEye Web Server                       │`);
-    console.log(`│  http://localhost:${PORT}/                 │`);
-    console.log(`│                                           │`);
-    console.log(`└─────────────────────────────────────────┘\n`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`\n┌─────────────────────────────────────────┐`);
+        console.log(`│  SafeEye Web Server                       │`);
+        console.log(`│  http://localhost:${PORT}/                 │`);
+        console.log(`│                                           │`);
+        console.log(`└─────────────────────────────────────────┘\n`);
+    });
+}
+
+// Cần thiết để Vercel nhận diện đây là một Serverless Function
+module.exports = app;
