@@ -98,21 +98,31 @@
                     </button>
 
                     <!-- Hamburger Button (Mobile) -->
-                    <button id="mobile-menu-btn" aria-expanded="false" class="md:hidden p-2 text-gray-800 hover:text-primary focus:outline-none focus:ring-4 focus:ring-yellow-400 rounded-lg">
+                    <button id="mobile-menu-btn" aria-expanded="false"
+                        class="md:hidden p-2 text-gray-800 hover:text-primary focus:outline-none focus:ring-4 focus:ring-yellow-400 rounded-lg">
                         <span class="sr-only">Mở menu</span>
                         <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
             </div>
 
             <!-- Mobile Navigation -->
-            <nav id="mobile-menu" class="hidden md:hidden pb-4 flex-col space-y-4 border-t border-gray-200 pt-4" aria-label="Menu di động">
-                <a href="/about" class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Giới thiệu</a>
-                <a href="/features" class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Tính năng</a>
-                <a href="/how-it-works" class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Hoạt động</a>
-                <a href="/contact" class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Liên hệ</a>
+            <nav id="mobile-menu" class="hidden md:hidden pb-4 flex-col space-y-4 border-t border-gray-200 pt-4"
+                aria-label="Menu di động">
+                <a href="/about"
+                    class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Giới
+                    thiệu</a>
+                <a href="/features"
+                    class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Tính
+                    năng</a>
+                <a href="/how-it-works"
+                    class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Hoạt
+                    động</a>
+                <a href="/contact"
+                    class="block text-gray-800 hover:text-primary font-bold text-xl px-2 transition-colors">Liên hệ</a>
             </nav>
         </div>
     </header>
@@ -238,7 +248,7 @@
                                 class="rounded-xl shadow-lg w-full object-cover">
                         </div>
                         <div class="w-full md:w-2/3">
-                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Nhận diện tiền mặt">💵 Nhận
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Nhận diện tiền mặt">Nhận
                                 diện tiền mặt</h3>
                             <p class="text-2xl text-gray-700 mb-4"
                                 data-read="Hỗ trợ bạn thanh toán, mua sắm an toàn hơn. Thiết bị sẽ đọc to mệnh giá của các tờ tiền Việt Nam khi đưa vào khung hình.">
@@ -257,7 +267,7 @@
                                 class="rounded-xl shadow-lg w-full object-cover">
                         </div>
                         <div class="w-full md:w-2/3">
-                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Phát hiện vật cản">🚧 Phát hiện
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4" data-read="Phát hiện vật cản">Phát hiện
                                 vật cản</h3>
                             <p class="text-2xl text-gray-700 mb-4"
                                 data-read="Quét không gian phía trước để phát hiện ghế, bàn, xe cộ, người qua lại và cảnh báo bạn kịp thời.">
@@ -278,7 +288,7 @@
                         </div>
                         <div class="w-full md:w-2/3">
                             <h3 class="text-4xl font-bold text-gray-900 mb-4"
-                                data-read="Cảnh báo bằng âm thanh ngay lập tức">🔊 Âm thanh cảnh báo Real-time</h3>
+                                data-read="Cảnh báo bằng âm thanh ngay lập tức">Âm thanh cảnh báo Real-time</h3>
                             <p class="text-2xl text-gray-700 mb-4"
                                 data-read="Khi phát hiện tiền hoặc vật cản, hệ thống sẽ chuyển ngay sang giọng nói tiếng Việt rõ ràng vào tai nghe của bạn.">
                                 Khi phát hiện tiền hoặc chướng ngại vật, hệ thống trực tiếp nói tiếng Việt hoặc phát âm
@@ -575,7 +585,7 @@
                     mobileMenu.classList.toggle('hidden');
                     mobileMenu.classList.toggle('flex');
                 });
-                
+
                 // Đóng menu khi bấm vào bất kỳ thẻ a nào trên điện thoại
                 mobileMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', () => {
@@ -590,11 +600,11 @@
             document.querySelectorAll('a[href^="/"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
-                    if(href === "/") return; // Bỏ qua link trang chủ mặc định
-                    
+                    if (href === "/") return; // Bỏ qua link trang chủ mặc định
+
                     const targetId = href.substring(1);
                     const targetSection = document.getElementById(targetId);
-                    
+
                     if (targetSection) {
                         e.preventDefault(); // Ngăn trình duyệt nạp lại trang
                         window.history.pushState({}, '', '/' + targetId); // Đổi URL
