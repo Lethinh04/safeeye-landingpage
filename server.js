@@ -15,10 +15,13 @@ app.use(express.static(path.join(__dirname, "public")));
 const renderLandingPage = (req, res) => res.render("index", { title: "SafeEye – Đôi mắt thông minh cho người khiếm thị" });
 
 app.get("/", renderLandingPage);
-app.get("/about", renderLandingPage);
-app.get("/features", renderLandingPage);
+app.get("/problem", renderLandingPage);
+app.get("/solution", renderLandingPage);
 app.get("/how-it-works", renderLandingPage);
+app.get("/features", renderLandingPage);
+app.get("/about", renderLandingPage);
 app.get("/contact", renderLandingPage);
+app.get("/trial", renderLandingPage);
 
 
 
