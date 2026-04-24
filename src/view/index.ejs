@@ -1987,19 +1987,19 @@
                         <div class="step-icon" role="img" aria-label="Não bộ trí tuệ nhân tạo">🧠</div>
                         <p class="step-sub" aria-hidden="true">Bước 2</p>
                         <h3>AI xử lý trực tiếp trên thiết bị</h3>
-                        <p>Phân tích và nhận diện vật cản nguy hiểm ngay trên chip – không cần gửi dữ liệu ra ngoài.</p>
+                        <p>Phân tích và nhận diện vật cản nguy hiểm ngay trên chip không cần gửi dữ liệu ra ngoài.</p>
                     </li>
                     <li class="step-card">
                         <div class="step-num" aria-hidden="true">3</div>
                         <div class="step-icon" role="img" aria-label="Chuông cảnh báo">🔔</div>
                         <p class="step-sub" aria-hidden="true">Bước 3</p>
                         <h3>Cảnh báo ngay lập tức</h3>
-                        <p>Thông qua rung hoặc âm thanh – phản hồi tức thì để bạn có đủ thời gian phản ứng.</p>
+                        <p>Thông qua rung hoặc âm thanh phản hồi tức thì để bạn có đủ thời gian phản ứng.</p>
                     </li>
                 </ol>
 
                 <p class="how-note" role="note" data-read="Tất cả diễn ra trong tích tắc – không cần internet">
-                    Tất cả diễn ra trong tích tắc –
+                    Tất cả diễn ra trong tích tắc
                     <strong>không cần internet</strong>
                 </p>
             </div>
@@ -2110,9 +2110,9 @@
                     </ul>
 
                     <div class="benefits-slogan" aria-label="Thông điệp của SafeEye">
-                        <div class="bs-emoji" role="img" aria-label="Tên lửa – trao quyền">🚀</div>
+                        <div class="bs-emoji" role="img" aria-label="Tên lửa trao quyền">🚀</div>
                         <h3>Không chỉ là thiết bị</h3>
-                        <p>SafeEye là công cụ <strong>trao quyền</strong> – giúp người khiếm thị sống một cuộc sống
+                        <p>SafeEye là công cụ <strong>trao quyền</strong>,giúp người khiếm thị sống một cuộc sống
                             chủ động, tự tin và có ý nghĩa hơn mỗi ngày.</p>
                         <p class="bs-quote" data-read="Không chỉ là thiết bị, mà là công cụ trao quyền">
                             "Không chỉ là thiết bị, mà là <em>công cụ trao quyền</em>"
@@ -2139,17 +2139,17 @@
                     <li class="user-card">
                         <div class="uc-icon" role="img" aria-label="Người không nhìn thấy">🙈</div>
                         <h3>Người khiếm thị</h3>
-                        <p>Đối tượng chính – hỗ trợ di chuyển hoàn toàn độc lập.</p>
+                        <p>Đối tượng chính hỗ trợ di chuyển hoàn toàn độc lập.</p>
                     </li>
                     <li class="user-card">
                         <div class="uc-icon" role="img" aria-label="Kính mắt">👓</div>
                         <h3>Người suy giảm thị lực</h3>
-                        <p>Nhìn kém, thị trường hẹp – cần thêm lớp cảnh báo an toàn.</p>
+                        <p>Nhìn kém, thị trường hẹp cần thêm lớp cảnh báo an toàn.</p>
                     </li>
                     <li class="user-card">
                         <div class="uc-icon" role="img" aria-label="Người cao tuổi">👴</div>
                         <h3>Người cao tuổi</h3>
-                        <p>Phản xạ chậm, thị lực giảm – SafeEye là trợ thủ đắc lực.</p>
+                        <p>Phản xạ chậm, thị lực giảm SafeEye là trợ thủ đắc lực.</p>
                     </li>
                     <li class="user-card">
                         <div class="uc-icon" role="img" aria-label="Xe lăn hỗ trợ di chuyển">♿</div>
@@ -2414,7 +2414,7 @@
 
                         <div class="form-group">
                             <label for="question">Câu hỏi cần giải đáp</label>
-                            <textarea id="question" name="entry.1851391739" class="form-input"
+                            <textarea id="question" name="entry.1385242291" class="form-input"
                                 placeholder="Nhập câu hỏi của bạn"></textarea>
                         </div>
 
@@ -2542,27 +2542,35 @@
             const mobileNav = document.getElementById('mobile-nav');
 
             hamburger.addEventListener('click', function () {
-                const isOpen = !mobileNav.hidden;
-                mobileNav.hidden = isOpen;
-                hamburger.setAttribute('aria-expanded', !isOpen);
-                hamburger.setAttribute('aria-label',
-                    isOpen ? 'Mở menu điều hướng' : 'Đóng menu điều hướng');
-                if (!isOpen) {
+                const isOpen = mobileNav.classList.contains('open');
+                if (isOpen) {
+                    mobileNav.classList.remove('open');
+                    mobileNav.hidden = true;
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    hamburger.setAttribute('aria-label', 'Mở menu điều hướng');
+                } else {
+                    mobileNav.classList.add('open');
+                    mobileNav.hidden = false;
+                    hamburger.setAttribute('aria-expanded', 'true');
+                    hamburger.setAttribute('aria-label', 'Đóng menu điều hướng');
                     // Move focus to first link when opening
-                    mobileNav.querySelector('a').focus();
+                    const firstLink = mobileNav.querySelector('a');
+                    if (firstLink) firstLink.focus();
                 }
             });
 
             // Close on link click & on Escape
             mobileNav.querySelectorAll('a').forEach(function (a) {
                 a.addEventListener('click', function () {
+                    mobileNav.classList.remove('open');
                     mobileNav.hidden = true;
                     hamburger.setAttribute('aria-expanded', 'false');
                     hamburger.setAttribute('aria-label', 'Mở menu điều hướng');
                 });
             });
             document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && !mobileNav.hidden) {
+                if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+                    mobileNav.classList.remove('open');
                     mobileNav.hidden = true;
                     hamburger.setAttribute('aria-expanded', 'false');
                     hamburger.focus();
