@@ -400,7 +400,7 @@
         .section-title {
             font-size: clamp(1.75rem, 4vw, 2.75rem);
             font-weight: 900;
-            line-height: 1.15;
+            line-height: 1.40;
             color: var(--text);
             margin-bottom: 1rem;
         }
@@ -1696,6 +1696,14 @@
                 border-color: ButtonText;
             }
         }
+
+        /* Reading Highlight */
+        .reading-highlight {
+            background: rgba(255, 214, 0, 0.2) !important;
+            box-shadow: 0 0 0 4px rgba(255, 214, 0, 0.3);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
     </style>
 </head>
 
@@ -1813,7 +1821,7 @@
                     <div class="hero-img-wrap">
                         <div class="hero-img-card">
                             <!-- WCAG 1.1.1 — Meaningful alt text -->
-                            <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1776687705/Baobi_i5kxyf.jpg"
+                            <img src="https://res.cloudinary.com/dwesxzrug/image/upload/v1777384882/Baobi_i5kxyf.png"
                                 alt="Hộp đóng gói sản phẩm SafeEye – thiết bị đeo hỗ trợ người khiếm thị" width="400"
                                 height="400" loading="eager">
                             <!-- aria-hidden: decorative badges, content in text above -->
@@ -2685,15 +2693,46 @@
             const voiceLabel = document.getElementById('voice-label');
             let voiceOn = false;
             const synth = window.speechSynthesis;
+            let currentReadingEl = null;
 
-            function speak(text) {
+            function speak(text, el) {
                 if (!voiceOn || !text || !synth) return;
+
+                // If already reading this element, don't restart
+                if (currentReadingEl === el) return;
+
                 synth.cancel();
+
+                // Clear previous highlight
+                if (currentReadingEl) {
+                    currentReadingEl.classList.remove('reading-highlight');
+                }
+
+                currentReadingEl = el;
+                if (el) el.classList.add('reading-highlight');
+
                 const utt = new SpeechSynthesisUtterance(text.trim());
                 utt.lang = 'vi-VN';
-                utt.rate = 0.95;
+                utt.rate = 1.0;
                 utt.pitch = 1.0;
+
+                utt.onend = function () {
+                    if (currentReadingEl === el) {
+                        el.classList.remove('reading-highlight');
+                        currentReadingEl = null;
+                    }
+                };
+
                 synth.speak(utt);
+            }
+
+            function stopSpeaking() {
+                if (!voiceOn) return;
+                synth.cancel();
+                if (currentReadingEl) {
+                    currentReadingEl.classList.remove('reading-highlight');
+                    currentReadingEl = null;
+                }
             }
 
             voiceBtn.addEventListener('click', function () {
@@ -2702,27 +2741,49 @@
                 // WCAG 4.1.2 — Update aria-label to reflect new state
                 voiceBtn.setAttribute('aria-label',
                     voiceOn
-                        ? 'Tắt hỗ trợ giọng nói (hiện đang bật)'
-                        : 'Bật hỗ trợ giọng nói (hiện đang tắt)');
+                        ? 'Tắt hỗ trợ giọng nói'
+                        : 'Bật hỗ trợ giọng nói');
                 voiceLabel.textContent = voiceOn ? 'Đang đọc' : 'Đọc nội dung';
+
                 announce(voiceOn
-                    ? 'Chế độ hỗ trợ giọng nói đã bật. Rê chuột hoặc dùng phím Tab để nghe.'
+                    ? 'Chế độ hỗ trợ giọng nói đã bật. Rê chuột, dùng phím Tab hoặc chạm vào nội dung để nghe.'
                     : 'Chế độ hỗ trợ giọng nói đã tắt.');
+
                 if (voiceOn) {
-                    speak('Chế độ hỗ trợ giọng nói đã bật. Rê chuột hoặc dùng Tab để nghe nội dung.');
+                    speak('Chế độ hỗ trợ giọng nói đã bật. Rê chuột, dùng Tab hoặc chạm để nghe nội dung.', voiceBtn);
                 } else {
-                    synth.cancel();
+                    stopSpeaking();
                 }
             });
 
-            document.querySelectorAll('[data-read], h1, h2, h3').forEach(function (el) {
-                function readEl() {
-                    speak(el.getAttribute('data-read') || el.getAttribute('aria-label') || el.innerText);
+            // Expand selectors to cover more content types
+            const readSelectors = 'h1, h2, h3, h4, h5, h6, p, li, a, button, [data-read], [aria-label]';
+            document.querySelectorAll(readSelectors).forEach(function (el) {
+                // Skip hidden or explicitly ignored elements
+                if (el.hasAttribute('data-no-read') || el.closest('[aria-hidden="true"]')) return;
+
+                function handleRead(e) {
+                    if (!voiceOn) return;
+                    if (e) e.stopPropagation(); // Prevent bubble to parent read-elements
+
+                    const text = el.getAttribute('data-read') || el.getAttribute('aria-label') || el.innerText;
+                    if (text && text.trim().length > 0) {
+                        speak(text, el);
+                    }
                 }
-                el.addEventListener('mouseenter', readEl);
-                el.addEventListener('focus', readEl);
-                el.addEventListener('mouseleave', function () { if (voiceOn) synth.cancel(); });
-                el.addEventListener('blur', function () { if (voiceOn) synth.cancel(); });
+
+                // Desktop events
+                el.addEventListener('mouseenter', handleRead);
+                el.addEventListener('focus', handleRead);
+                el.addEventListener('mouseleave', stopSpeaking);
+                el.addEventListener('blur', stopSpeaking);
+
+                // Mobile support: Read on touch
+                el.addEventListener('touchstart', function (e) {
+                    if (voiceOn) {
+                        handleRead(e);
+                    }
+                }, { passive: true });
             });
 
             // ── SCROLL-REVEAL (disabled if prefers-reduced-motion) ──
