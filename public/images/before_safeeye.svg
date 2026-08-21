@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="before-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAFBFD"/>
+      <stop offset="100%" stop-color="#FFF0F0"/>
+    </linearGradient>
+    <filter id="red-glow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#991B1B" flood-opacity="0.3"/>
+    </filter>
+    <filter id="soft-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="300" rx="8" fill="url(#before-bg)"/>
+  
+  <!-- Red warning tint on the right side -->
+  <circle cx="360" cy="150" r="140" fill="#FEE2E2" opacity="0.6" filter="blur"/>
+
+  <!-- Grid/Texture lines for sidewalk -->
+  <line x1="30" y1="230" x2="370" y2="230" stroke="#BDCFE8" stroke-width="2"/>
+  <line x1="30" y1="230" x2="10" y2="290" stroke="#BDCFE8" stroke-width="2"/>
+  <line x1="150" y1="230" x2="120" y2="290" stroke="#BDCFE8" stroke-width="1.5"/>
+  <line x1="270" y1="230" x2="250" y2="290" stroke="#BDCFE8" stroke-width="1.5"/>
+  <line x1="370" y1="230" x2="360" y2="290" stroke="#BDCFE8" stroke-width="2"/>
+
+  <!-- Character: Blind Person (Hesitant, using cane) -->
+  <g transform="translate(45, 75)" filter="url(#soft-shadow)">
+    <!-- Head -->
+    <circle cx="45" cy="40" r="12" fill="#4B5563"/>
+    <!-- Body -->
+    <path d="M 45,52 C 35,52 30,65 30,85 L 30,125 C 30,130 35,135 40,135 L 42,135 L 40,170 C 40,175 45,175 47,170 L 51,135 L 53,170 C 53,175 58,175 60,170 L 58,135 L 60,135 C 65,135 70,130 70,125 L 70,85 C 70,65 65,52 45,52 Z" fill="#4B5563"/>
+    <!-- Arm holding cane (feeling forward) -->
+    <path d="M 35,65 L 15,85 L 10,115" fill="none" stroke="#4B5563" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Cane (extending forward to ground) -->
+    <line x1="10" y1="115" x2="-22" y2="180" stroke="#E5E7EB" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-22" y1="177" x2="-25" y2="180" stroke="#EF4444" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Obstacles & Danger zone (Right side) -->
+  
+  <!-- Obstacle 1: Pothole / open manhole -->
+  <ellipse cx="230" cy="245" rx="25" ry="8" fill="#1F2937"/>
+  <ellipse cx="230" cy="242" rx="23" ry="6" fill="#111827"/>
+  
+  <!-- Obstacle 2: Motorbike / vehicle blocking sidewalk -->
+  <g transform="translate(280, 130)" filter="url(#soft-shadow)">
+    <path d="M 10,95 C 10,95 5,85 5,75 C 5,60 20,50 35,50 L 50,55 C 50,55 55,30 65,15 C 70,5 85,5 85,5 L 88,15 L 75,25 L 75,55 L 90,65 C 95,70 95,85 90,95 Z" fill="#EF4444" opacity="0.8"/>
+    <!-- Wheels -->
+    <circle cx="20" cy="95" r="14" fill="#374151" stroke="#EF4444" stroke-width="2"/>
+    <circle cx="80" cy="95" r="14" fill="#374151" stroke="#EF4444" stroke-width="2"/>
+    <circle cx="20" cy="95" r="6" fill="#F3F4F6"/>
+    <circle cx="80" cy="95" r="6" fill="#F3F4F6"/>
+  </g>
+
+  <!-- Warning Indicators -->
+  <!-- Exclamation/Alert Sign -->
+  <g transform="translate(215, 155)" filter="url(#red-glow)">
+    <path d="M 15,5 L 27,27 C 29,30 27,33 24,33 L 4,33 C 1,33 -1,30 1,27 Z" fill="#EF4444"/>
+    <text x="11" y="27" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="16">!</text>
+  </g>
+  
+  <g transform="translate(305, 95)" filter="url(#red-glow)">
+    <path d="M 15,5 L 27,27 C 29,30 27,33 24,33 L 4,33 C 1,33 -1,30 1,27 Z" fill="#EF4444"/>
+    <text x="11" y="27" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="16">!</text>
+  </g>
+
+  <!-- Confused/Scared waves around the person's head -->
+  <path d="M 80,95 Q 73,85 78,75" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-dasharray="2,2"/>
+  <path d="M 85,90 Q 80,85 83,80" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round"/>
+</svg>
